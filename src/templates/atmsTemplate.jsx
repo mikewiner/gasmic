@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import styled from "@emotion/styled";
 import { Layout, Listing, Wrapper, Title, SEO, Header } from "../components";
 import website from "../../config/website";
@@ -31,6 +31,8 @@ const AtmTemplate = (props) => {
             <p>eth:{props.pageContext.prices.ETH_BuyPrice}</p>
             <p>ltc:{props.pageContext.prices.LTC_BuyPrice}</p>
           </div>
+          <Link style={{color:'white'}} to={`/`}>Home</Link>{` `}
+          <Link style={{color:'white'}} to={`/nav`}>Nav</Link>
         </Wrapper>
       </Hero>
     </Layout>

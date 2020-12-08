@@ -17,7 +17,7 @@ class Map extends Component {
   render() {
     return (
       <Layout>
-        <MapContainer>Your map goes here</MapContainer>
+        <MapContainer>404 yo</MapContainer>
       </Layout>
     )
   }

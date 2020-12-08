@@ -1,0 +1,10 @@
+{
+  "Main": {
+    "link": {
+      "type": "Link",
+      "config": {
+        "label": "link"
+      }
+    }
+  }
+}

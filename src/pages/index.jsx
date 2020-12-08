@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import styled from '@emotion/styled'
-import { graphql } from 'gatsby'
+import { graphql, Link } from 'gatsby'
 import { Layout, Listing, Wrapper, Title } from '../components'
 import website from '../../config/website'
 
@@ -112,6 +112,7 @@ class Index extends Component {
                 </li>
               ))}
             </Social>
+            <Link to={`/nav`}>To the nav</Link>
           </HeroInner>
         </Hero>
         <IndexWrapper id={website.skipNavId} style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>

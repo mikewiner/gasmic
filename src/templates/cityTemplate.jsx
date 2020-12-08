@@ -25,6 +25,8 @@ const cityTemplate = (props) => {
           <div>
             <h2>prices</h2>
             <p>There are {props.pageContext.count} atms up in here</p>
+            <Link style={{color:'white'}} to={`/`}>Home</Link>
+            <Link style={{color:'white'}} to={`/nav`}>Nav</Link>
           </div>
         </Wrapper>
       </Hero>
