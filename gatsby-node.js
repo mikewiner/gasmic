@@ -1,21 +1,26 @@
-const _ = require('lodash')
+const _ = require("lodash");
+const fetch = require(`node-fetch`);
 
 // graphql function doesn't throw an error so we have to check to check for the result.errors to throw manually
 const wrapper = (promise) =>
   promise.then((result) => {
     if (result.errors) {
-      throw result.errors
+      throw result.errors;
     }
-    return result
-  })
+    return result;
+  });
 
 exports.createPages = async ({ graphql, actions }) => {
-  const { createPage } = actions
+  const { createPage } = actions;
 
-  const postTemplate = require.resolve('./src/templates/post.jsx')
-  const categoryTemplate = require.resolve('./src/templates/category.jsx')
-  const atmsTemplate = require.resolve('./src/templates/atmsTemplate.jsx')
-  const cityTemplate = require.resolve('./src/templates/cityTemplate.jsx')
+  const resultApi = await fetch(`https://public.localcoin.tech/service/api/v2/location`);
+  const resultApiData = await resultApi.json();
+  console.log(JSON.stringify(resultApiData, null, 4));
+
+  const postTemplate = require.resolve("./src/templates/post.jsx");
+  const categoryTemplate = require.resolve("./src/templates/category.jsx");
+  const atmsTemplate = require.resolve("./src/templates/atmsTemplate.jsx");
+  const cityTemplate = require.resolve("./src/templates/cityTemplate.jsx");
 
   const result = await wrapper(
     graphql(`
@@ -79,43 +84,55 @@ exports.createPages = async ({ graphql, actions }) => {
         }
       }
     `)
-  )
+  );
 
-  const categorySet = new Set()
+  const categorySet = new Set();
   const postsList = result.data.allPrismicPost.edges;
   const atmsList = result.data.allAtmsJson.edges;
   const citiesList = result.data.allAtmsJson.group;
 
-  citiesList.forEach((group)=>{
-    console.log(JSON.stringify(group.edges[0].node, null, 4));
+  citiesList.forEach((group) => {
+    // console.log(JSON.stringify(group.edges[0].node, null, 4));
     createPage({
       path: `/cities/${_.kebabCase(group.edges[0].node.location.city)}`,
       component: cityTemplate,
       context: {
-        count:group.totalCount,
+        count: group.totalCount,
         name: group.edges[0].node.location.city,
       },
-    })
-  })
+    });
+  });
 
-  atmsList.forEach((edge)=>{
-    console.log(edge.node.name);
+  resultApiData.forEach((node) => {
+    console.log(node.name);
     createPage({
-      path: `/atms/${_.kebabCase(edge.node.name+edge.node.id)}`,
+      path: `/atms-from-api/${_.kebabCase(node.name + node.id)}`,
       component: atmsTemplate,
       context: {
-        name:edge.node.name,
-        prices:edge.node.prices,
+        name: node.name,
+        prices: node.prices,
       },
-    })
-  })
+    });
+  });
+
+  atmsList.forEach((edge) => {
+    // console.log(edge.node.name);
+    createPage({
+      path: `/atms/${_.kebabCase(edge.node.name + edge.node.id)}`,
+      component: atmsTemplate,
+      context: {
+        name: edge.node.name,
+        prices: edge.node.prices,
+      },
+    });
+  });
 
   // Double check that the post has a category assigned
   postsList.forEach((edge) => {
     if (edge.node.data.categories[0].category) {
       edge.node.data.categories.forEach((cat) => {
-        categorySet.add(cat.category.document[0].data.name)
-      })
+        categorySet.add(cat.category.document[0].data.name);
+      });
     }
 
     // The uid you assigned in Prismic is the slug!
@@ -126,10 +143,10 @@ exports.createPages = async ({ graphql, actions }) => {
         // Pass the unique ID (uid) through context so the template can filter by it
         uid: edge.node.uid,
       },
-    })
-  })
+    });
+  });
 
-  const categoryList = Array.from(categorySet)
+  const categoryList = Array.from(categorySet);
 
   categoryList.forEach((category) => {
     createPage({
@@ -138,6 +155,6 @@ exports.createPages = async ({ graphql, actions }) => {
       context: {
         category,
       },
-    })
-  })
-}
+    });
+  });
+};

@@ -112,7 +112,8 @@ class Index extends Component {
                 </li>
               ))}
             </Social>
-            <Link to={`/nav`}>To the nav</Link>
+            <Link to={`/nav`}>Nav</Link>{` `}
+            <Link to={`/map`}>Map</Link>
           </HeroInner>
         </Hero>
         <IndexWrapper id={website.skipNavId} style={{ paddingTop: '2rem', paddingBottom: '2rem' }}>
