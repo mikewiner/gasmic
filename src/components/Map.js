@@ -85,6 +85,9 @@ const StyledMap = styled.div`
       padding: 0;
       margin: 0.6em 0 0;
     }
+    li {
+      margin-bottom: 0;
+    }
   }
 `;
 
@@ -188,6 +191,8 @@ const Map = ({ children }) => {
               <h2>${name}</h2>
               <ul>
                 <li><strong>BTC:</strong> ${prices.BTC_BuyPrice}</li>
+                <li><strong>LTC:</strong> ${prices.LTC_BuyPrice}</li>
+                <li><strong>ETH:</strong> ${prices.ETH_BuyPrice}</li>
               </ul>
             </span>
           </span>
@@ -206,8 +211,6 @@ const Map = ({ children }) => {
     geoJsonLayers.addTo(map)
   }
 
-
-  
   const mapSettings = {
     className: mapStyles.mapBase,
     zoomControl: false,
@@ -224,7 +227,6 @@ const Map = ({ children }) => {
     );
   }
 
-  
   return (
     <StyledMap className={mapStyles.map}>
       <BaseMap ref={mapRef} {...mapSettings}>
@@ -234,7 +236,6 @@ const Map = ({ children }) => {
         />
         <ZoomControl position="bottomright" />
 
-       
         {children}
       </BaseMap>
     </StyledMap>
