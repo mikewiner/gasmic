@@ -109,12 +109,10 @@ body {
 }
 
 @media only screen and (max-width: 800px) {
-  h1{
-    display: none;
-  }
   .map-base {
     margin-top: 10px;
+    margin-bottom: 10px;
     width: 95vw;
-    height: 95vh;
+    height: 88vh;
   }
 }
