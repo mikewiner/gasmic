@@ -1,0 +1,108 @@
+/* This sets the entire app's body to have 0 margin */
+
+body {
+  margin: 0;
+}
+
+.map-base {
+  margin: 0 auto;
+  margin-top: 15px;
+  width: 60vw;
+  height: 60vh;
+  background: #abd3df;
+}
+
+.map-loading {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  color: gray;
+  width: 100%;
+  height: 4em;
+  line-height: 4em;
+  text-align: center;
+  margin: auto;
+}
+
+.map {
+
+  position: relative;
+
+
+  .icon-marker {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 2.4em;
+    height: 2.4em;
+    font-size: 0.7em;
+    font-weight: bold;
+    background-color: orange;
+    border-radius: 100%;
+    border: solid 1px white;
+    box-shadow: 0 2px 5px rgba(black, 0.1);
+
+    &:hover {
+      .icon-marker-tooltip {
+        display: block;
+      }
+    }
+  }
+  .icon-marker-tooltip {
+    display: none;
+    position: absolute;
+    bottom: 100%;
+    width: 16em;
+    font-size: 1.4em;
+    padding: 1em;
+    background-color: #ffc04d;
+    border-radius: 0.4em;
+    margin-bottom: 1em;
+    box-shadow: 10px 10px 21px 2px rgba(0, 0, 0, 0.14);
+
+    &:before {
+      display: block;
+      position: absolute;
+      bottom: -0.6em;
+      left: 50%;
+      content: "";
+      width: 1.4em;
+      height: 1.4em;
+      background-color: #ffc04d;
+      transform: rotate(45deg);
+      margin-left: -0.7em;
+    }
+
+    h2 {
+      font-size: 1.5em;
+      line-height: 1.2;
+      margin-bottom: 0.1em;
+      margin-top: 0;
+    }
+
+    h3 {
+      font-size: 1.2em;
+      margin: 0.1em 0;
+      font-weight: normal;
+      color: white;
+    }
+
+    ul,
+    p {
+      font-weight: normal;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0.6em 0 0;
+    }
+    li {
+      margin-bottom: 0;
+    }
+  }
+}

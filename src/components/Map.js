@@ -9,87 +9,8 @@ import {
   Marker,
   useMap,
 } from "react-leaflet";
-import mapStyles from "./Map.module.css";
-import styled from "@emotion/styled";
+import mapStyles from "./Map.module.scss";
 import { set } from "lodash";
-
-const StyledMap = styled.div`
-  .icon-marker {
-    display: flex;
-    position: relative;
-    justify-content: center;
-    align-items: center;
-    color: white;
-    width: 3.6em;
-    height: 3.6em;
-    font-size: 0.7em;
-    font-weight: bold;
-    background-color: orange;
-    border-radius: 100%;
-    border: solid 1px slategray;
-    box-shadow: 0 2px 5px rgba(black, 0.9);
-
-    &:hover {
-      .icon-marker-tooltip {
-        display: block;
-      }
-    }
-  }
-
-  .icon-marker-tooltip {
-    display: none;
-    position: absolute;
-    bottom: 100%;
-    width: 16em;
-    font-size: 1.4em;
-    padding: 1em;
-    background-color: #ffc04d;
-    border-radius: 0.4em;
-    margin-bottom: 1em;
-    box-shadow: 10px 10px 21px 2px rgba(0,0,0,0.14);
-
-    &:before {
-      display: block;
-      position: absolute;
-      bottom: -0.6em;
-      left: 50%;
-      content: "";
-      width: 1.4em;
-      height: 1.4em;
-      background-color: #ffc04d;
-      transform: rotate(45deg);
-      margin-left: -0.7em;
-    }
-
-    h2 {
-      font-size: 1.5em;
-      line-height: 1.2;
-      margin-bottom: 0.1em;
-      margin-top: 0;
-    }
-
-    h3 {
-      font-size: 1.2em;
-      margin: 0.1em 0;
-      font-weight: normal;
-      color: white;
-    }
-
-    ul,
-    p {
-      font-weight: normal;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0.6em 0 0;
-    }
-    li {
-      margin-bottom: 0;
-    }
-  }
-`;
 
 const isDomAvailable = typeof window !== "undefined";
 
@@ -186,8 +107,8 @@ const Map = ({ children }) => {
         const { country, name, prices } = properties;
 
         const html = `
-          <span class="icon-marker">
-            <span class="icon-marker-tooltip">
+          <span class="${mapStyles.iconMarker}">
+            <span class="${mapStyles.iconMarkerTooltip}">
               <h2>${name}</h2>
               <ul>
                 <li><strong>BTC:</strong> ${prices.BTC_BuyPrice}</li>
@@ -215,7 +136,7 @@ const Map = ({ children }) => {
     className: mapStyles.mapBase,
     zoomControl: false,
     center: [43.6532, -79.3832],
-    zoom: 7,
+    zoom: 10,
     mapEffect
   };
   
@@ -228,7 +149,7 @@ const Map = ({ children }) => {
   }
 
   return (
-    <StyledMap className={mapStyles.map}>
+    <div className={mapStyles.map}>
       <BaseMap ref={mapRef} {...mapSettings}>
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -238,7 +159,7 @@ const Map = ({ children }) => {
 
         {children}
       </BaseMap>
-    </StyledMap>
+    </div>
   );
 };
 
