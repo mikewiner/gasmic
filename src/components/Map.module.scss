@@ -106,3 +106,12 @@ body {
     }
   }
 }
+
+@media only screen and (max-width: 800px) {
+  .map-base {
+    margin-top: 10px;
+    width: 95vw;
+    height: 90vh;
+  }
+}
+
